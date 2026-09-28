@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Suru design tokens
+   Dark-first. One restrained accent ("signal lime") used for momentum:
+   progress, focus, primary action. Everything else is neutral.
+--------------------------------------------------------------------------- */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #09090b;
+  --bg-subtle: #0e0e11;
+  --surface: #121216;
+  --surface-2: #17171c;
+  --surface-3: #1e1e24;
+  --border: rgba(255, 255, 255, 0.065);
+  --border-strong: rgba(255, 255, 255, 0.11);
+  --fg: #ededf0;
+  --fg-muted: #9b9ba6;
+  --fg-faint: #6b6b76;
+  --accent: #c8f169;
+  --accent-strong: #d9ff85;
+  --accent-fg: #0d1203;
+  --accent-soft: rgba(200, 241, 105, 0.1);
+  --accent-ring: rgba(200, 241, 105, 0.45);
+  --danger: #f2706b;
+  --danger-soft: rgba(242, 112, 107, 0.12);
+  --warn: #f5a95b;
+  --info: #7cb4ff;
+  --p-urgent: #f2706b;
+  --p-high: #f5a95b;
+  --p-medium: #7cb4ff;
+  --p-low: #8b8b96;
+  --ws-personal: #e7a4ff;
+  --ws-work: #7cb4ff;
+  --ws-projects: #f5c65b;
+  --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 8px 24px -8px rgba(0, 0, 0, 0.55);
+  --glow: 0 0 0 1px rgba(200, 241, 105, 0.25), 0 8px 30px -10px rgba(200, 241, 105, 0.25);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f7f5;
+  --bg-subtle: #f0f0ed;
+  --surface: #ffffff;
+  --surface-2: #fafaf8;
+  --surface-3: #f1f1ee;
+  --border: rgba(15, 15, 20, 0.08);
+  --border-strong: rgba(15, 15, 20, 0.14);
+  --fg: #16161a;
+  --fg-muted: #5f5f6b;
+  --fg-faint: #8d8d98;
+  --accent: #4f7a0f;
+  --accent-strong: #3f6408;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(79, 122, 15, 0.09);
+  --accent-ring: rgba(79, 122, 15, 0.4);
+  --danger: #d6403a;
+  --danger-soft: rgba(214, 64, 58, 0.09);
+  --warn: #c7700f;
+  --info: #2f6fd6;
+  --p-urgent: #d6403a;
+  --p-high: #d27a12;
+  --p-medium: #2f6fd6;
+  --p-low: #8d8d98;
+  --ws-personal: #a045c8;
+  --ws-work: #2f6fd6;
+  --ws-projects: #b58300;
+  --shadow-lg: 0 24px 60px -16px rgba(20, 20, 30, 0.22), 0 0 0 1px rgba(15, 15, 20, 0.06);
+  --shadow-md: 0 8px 24px -10px rgba(20, 20, 30, 0.18);
+  --glow: 0 0 0 1px rgba(79, 122, 15, 0.25), 0 8px 30px -12px rgba(79, 122, 15, 0.3);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warn: var(--warn);
+  --color-info: var(--info);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --shadow-lg: var(--shadow-lg);
+  --shadow-md: var(--shadow-md);
+  --shadow-glow: var(--glow);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--fg);
+}
+
+/* Focus: always visible for keyboard users, never for mouse clicks */
+:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Text fields show focus through their container/border instead of an outline */
+input:not([type="checkbox"]):not([type="radio"]):focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
+/* Quiet scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+/* Subtle noise-free backdrop glow at the top of the workspace */
+.workspace-glow {
+  background:
+    radial-gradient(900px 300px at 20% -120px, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%),
+    var(--bg);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pop-out {
+  from { opacity: 1; }
+  to { opacity: 0; transform: scale(0.98); }
+}
